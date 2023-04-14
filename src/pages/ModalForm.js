@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import EmployeeForm from './EmployeeForm';
 
-const ModalForm = ({ heading, id, smShow, setSmShow }) => {
+const ModalForm = ({ heading, id, smShow, setSmShow, setEmployees }) => {
     return (
         <div>
             <Modal
@@ -16,7 +16,7 @@ const ModalForm = ({ heading, id, smShow, setSmShow }) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <EmployeeForm></EmployeeForm>
+                    <EmployeeForm setEmployees={setEmployees} setSmShow={setSmShow}></EmployeeForm>
                 </Modal.Body>
             </Modal>
         </div>

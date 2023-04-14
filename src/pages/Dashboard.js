@@ -24,10 +24,10 @@ const Dashboard = () => {
                 <Button onClick={() => setSmShow(true)} variant="warning" className='d-flex items-center'>
                     <AiOutlineUserAdd className='me-1'></AiOutlineUserAdd>Add Employee
                 </Button>
-                <ModalForm smShow={smShow} setSmShow={setSmShow} heading={'Add Employee Form'} id={'addEmployee'} ></ModalForm>
+                <ModalForm smShow={smShow} setSmShow={setSmShow} heading={'Add Employee Form'} id={'addEmployee'} setEmployees={setEmployees}></ModalForm>
             </div>
             <div className='p-4'>
-                <EmployeeDataTable employees={employees}></EmployeeDataTable>
+                <EmployeeDataTable employees={employees} setEmployees={setEmployees}></EmployeeDataTable>
             </div>
         </div>
     );

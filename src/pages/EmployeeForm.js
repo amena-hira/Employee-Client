@@ -2,8 +2,9 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import './EmployeeForm.css';
+import toast from 'react-hot-toast';
 
-const EmployeeForm = () => {
+const EmployeeForm = ({setEmployees, setSmShow}) => {
     const handleSubmit = (event) =>{
         event.preventDefault();
         const form = event.target;
@@ -33,7 +34,9 @@ const EmployeeForm = () => {
         })
         .then(res => res.json())
             .then(data => {
-                console.log(data);
+                setSmShow(false);
+                toast.success(`${name} employee added successfully!!`)
+                setEmployees(data)
             }) 
     }
     return (

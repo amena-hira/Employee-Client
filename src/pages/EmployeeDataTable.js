@@ -4,10 +4,23 @@ import Table from 'react-bootstrap/Table';
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ModalForm from './ModalForm';
+import toast from 'react-hot-toast';
 
-const EmployeeDataTable = ({ employees }) => {
-    console.log("employees: ", typeof employees, employees);
+const EmployeeDataTable = ({ employees, setEmployees }) => {
     const [lgShow, setLgShow] = useState(false);
+
+    const handleEmployeeDelete = (emp) => {
+        console.log(emp);
+        fetch(`http://localhost:5000/deleteEmployee/${emp.id}`,{
+            method:'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.error(`${emp.name} employee delete successfully!!!`)
+                setEmployees(data)
+            })
+    }
     return (
         <div>
             <Table responsive bordered hover>
@@ -32,9 +45,9 @@ const EmployeeDataTable = ({ employees }) => {
                 </thead>
                 <tbody>
                     {
-                        employees.map((emp,index)=>
+                        employees.map((emp, index) =>
                             <tr>
-                                <td>{index+1}</td>
+                                <td>{index + 1}</td>
                                 <td>{emp.name}</td>
                                 <td>{emp.job_title}</td>
                                 <td>{emp.phone}</td>
@@ -51,7 +64,7 @@ const EmployeeDataTable = ({ employees }) => {
                                 <td>
                                     <div className='d-flex'>
                                         <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit></FaUserEdit></Button>
-                                        <Button className='add-btn' variant="danger">
+                                        <Button onClick={() => handleEmployeeDelete(emp)} className='add-btn' variant="danger">
                                             <MdDelete></MdDelete>
                                         </Button>
                                     </div>
