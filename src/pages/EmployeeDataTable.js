@@ -5,7 +5,8 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import ModalForm from './ModalForm';
 
-const EmployeeDataTable = ({ handleShow, show, handleClose }) => {
+const EmployeeDataTable = ({ employees }) => {
+    console.log("employees: ", typeof employees, employees);
     const [lgShow, setLgShow] = useState(false);
     return (
         <div>
@@ -30,78 +31,34 @@ const EmployeeDataTable = ({ handleShow, show, handleClose }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>1</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>
-                            <div className='d-flex'>
-                                <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit></FaUserEdit></Button>
-                                <Button className='add-btn' variant="danger" onClick={handleShow}>
-                                    <MdDelete></MdDelete>
-                                </Button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>2</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>
-                            <div className='d-flex'>
-                                <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit></FaUserEdit></Button>
-                                <Button className='add-btn' variant="danger" onClick={handleShow}>
-                                    <MdDelete></MdDelete>
-                                </Button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>3</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>
-                            <div className='d-flex'>
-                                <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit></FaUserEdit></Button>
-                                <Button className='add-btn' variant="danger" onClick={handleShow}>
-                                    <MdDelete></MdDelete>
-                                </Button>
-                            </div>
-                        </td>
-                    </tr>
+                    {
+                        employees.map((emp,index)=>
+                            <tr>
+                                <td>{index+1}</td>
+                                <td>{emp.name}</td>
+                                <td>{emp.job_title}</td>
+                                <td>{emp.phone}</td>
+                                <td>{emp.email}</td>
+                                <td>{emp.address}</td>
+                                <td>{emp.city}</td>
+                                <td>{emp.state}</td>
+                                <td>{emp.primary_contact}</td>
+                                <td>{emp.primary_phone}</td>
+                                <td>{emp.primary_relation}</td>
+                                <td>{emp.secondary_contact}</td>
+                                <td>{emp.secondary_phone}</td>
+                                <td>{emp.secondary_relation}</td>
+                                <td>
+                                    <div className='d-flex'>
+                                        <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit></FaUserEdit></Button>
+                                        <Button className='add-btn' variant="danger">
+                                            <MdDelete></MdDelete>
+                                        </Button>
+                                    </div>
+                                </td>
+                            </tr>)
+                    }
+
                 </tbody>
             </Table>
             <ModalForm smShow={lgShow} setSmShow={setLgShow} heading={'Edit Employee Form'} id={'addEmployee'} ></ModalForm>

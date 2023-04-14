@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EmployeeDataTable from './EmployeeDataTable';
 import Button from 'react-bootstrap/Button';
 import ModalForm from './ModalForm';
@@ -6,6 +6,18 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 
 const Dashboard = () => {
     const [smShow, setSmShow] = useState(false);
+    const [employees, setEmployees] = useState([]);
+
+
+    useEffect(() => {
+        fetch('http://localhost:5000/getEmployee')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setEmployees(data)
+            })
+    }, []);
+
     return (
         <div>
             <div className='d-flex justify-content-end p-4'>
@@ -15,7 +27,7 @@ const Dashboard = () => {
                 <ModalForm smShow={smShow} setSmShow={setSmShow} heading={'Add Employee Form'} id={'addEmployee'} ></ModalForm>
             </div>
             <div className='p-4'>
-                <EmployeeDataTable></EmployeeDataTable>
+                <EmployeeDataTable employees={employees}></EmployeeDataTable>
             </div>
         </div>
     );
