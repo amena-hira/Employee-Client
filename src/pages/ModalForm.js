@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import EmployeeForm from './EmployeeForm';
 
-const ModalForm = ({ heading, id, smShow, setSmShow, setEmployees }) => {
+const ModalForm = ({editEmployee, setEditEmployee, heading, id, smShow, setSmShow, setEmployees, setCount, page, size }) => {
     return (
         <div>
             <Modal
@@ -10,13 +10,13 @@ const ModalForm = ({ heading, id, smShow, setSmShow, setEmployees }) => {
                 onHide={() => setSmShow(false)}
                 aria-labelledby="example-modal-sizes-title-sm"
             >
-                <Modal.Header closeButton>
+                <Modal.Header closeButton onClick={()=>setEditEmployee('')}>
                     <Modal.Title id="example-modal-sizes-title-sm">
-                        {heading}
+                        {heading} Employee Form
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <EmployeeForm setEmployees={setEmployees} setSmShow={setSmShow}></EmployeeForm>
+                    <EmployeeForm page={page} size={size} setCount={setCount} heading={heading} editEmployee={editEmployee} setEmployees={setEmployees} setSmShow={setSmShow}></EmployeeForm>
                 </Modal.Body>
             </Modal>
         </div>

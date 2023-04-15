@@ -6,17 +6,24 @@ import { MdDelete } from "react-icons/md";
 import ModalForm from './ModalForm';
 import toast from 'react-hot-toast';
 
-const EmployeeDataTable = ({ employees, setEmployees }) => {
+const EmployeeDataTable = ({ employees, editEmployee, setEditEmployee, setEmployees }) => {
     const [lgShow, setLgShow] = useState(false);
-
-    const handleEmployeeDelete = (emp) => {
-        console.log(emp);
-        fetch(`http://localhost:5000/deleteEmployee/${emp.id}`,{
-            method:'DELETE'
-        })
+    const handleEmployeeEdit = (emp) => {
+        fetch(`http://localhost:5000/getEmployee/${emp.id}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                setEditEmployee(data);
+            })
+    }
+
+    const handleEmployeeDelete = (emp) => {
+        console.log(emp);
+        fetch(`http://localhost:5000/deleteEmployee/${emp.id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
                 toast.error(`${emp.name} employee delete successfully!!!`)
                 setEmployees(data)
             })
@@ -46,7 +53,7 @@ const EmployeeDataTable = ({ employees, setEmployees }) => {
                 <tbody>
                     {
                         employees.map((emp, index) =>
-                            <tr>
+                            <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{emp.name}</td>
                                 <td>{emp.job_title}</td>
@@ -63,7 +70,7 @@ const EmployeeDataTable = ({ employees, setEmployees }) => {
                                 <td>{emp.secondary_relation}</td>
                                 <td>
                                     <div className='d-flex'>
-                                        <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit></FaUserEdit></Button>
+                                        <Button variant='outline-success' className="btn me-1" onClick={() => setLgShow(true)}><FaUserEdit onClick={() => handleEmployeeEdit(emp)}></FaUserEdit></Button>
                                         <Button onClick={() => handleEmployeeDelete(emp)} className='add-btn' variant="danger">
                                             <MdDelete></MdDelete>
                                         </Button>
@@ -74,7 +81,7 @@ const EmployeeDataTable = ({ employees, setEmployees }) => {
 
                 </tbody>
             </Table>
-            <ModalForm smShow={lgShow} setSmShow={setLgShow} heading={'Edit Employee Form'} id={'addEmployee'} ></ModalForm>
+            <ModalForm setEditEmployee={setEditEmployee} editEmployee={editEmployee} smShow={lgShow} setSmShow={setLgShow} heading={'Edit'} id={'addEmployee'} ></ModalForm>
         </div>
     );
 };
