@@ -28,7 +28,7 @@ const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setEditE
         console.log(employeeData);
         console.log(page,size);
         if (heading === 'Add') {
-            fetch(`http://localhost:5000/addEmployee?page=${0}&size=${size}`, {
+            fetch(`https://employment-server-side.vercel.app/addEmployee?page=${0}&size=${size}`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -47,7 +47,7 @@ const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setEditE
         }
         else {
             
-            fetch(`http://localhost:5000/editEmployee/${editEmployee[0]?.id}?page=${page}&size=${size}`, {
+            fetch(`https://employment-server-side.vercel.app/editEmployee/${editEmployee[0]?.id}?page=${page}&size=${size}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'

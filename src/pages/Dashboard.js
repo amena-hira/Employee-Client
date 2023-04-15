@@ -17,7 +17,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getEmployee?page=${page}&size=${size}`)
+        fetch(`https://employment-server-side.vercel.app/getEmployee?page=${page}&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 console.log(data);
