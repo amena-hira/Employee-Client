@@ -4,7 +4,8 @@ import Form from 'react-bootstrap/Form';
 import './EmployeeForm.css';
 import toast from 'react-hot-toast';
 
-const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setCount, page, size }) => {
+const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setEditEmployee, setCount, page, size, setPage }) => {
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -25,8 +26,9 @@ const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setCount
             name, job_title, phone, email, address, city, state, primary_contact, primary_phone, primary_relation, secondary_contact, secondary_phone, secondary_relation
         }
         console.log(employeeData);
+        console.log(page,size);
         if (heading === 'Add') {
-            fetch(`http://localhost:5000/addEmployee?page=${page*size}&size=${size}`, {
+            fetch(`http://localhost:5000/addEmployee?page=${0}&size=${size}`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -37,12 +39,15 @@ const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setCount
                 .then(data => {
                     setSmShow(false);
                     toast.success(`${name} employee added successfully!!`);
+                    console.log(data);
                     setEmployees(data.result);
                     setCount(data.count[0].total_count);
+                    setPage(0);
                 })
         }
         else {
-            fetch(`http://localhost:5000/editEmployee/${editEmployee[0]?.id}`, {
+            
+            fetch(`http://localhost:5000/editEmployee/${editEmployee[0]?.id}?page=${page}&size=${size}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -53,9 +58,12 @@ const EmployeeForm = ({ heading, setEmployees, setSmShow, editEmployee, setCount
                 .then(data => {
                     console.log(data);
                     setSmShow(false);
-                    toast(`${name} employee edited successfully!!`, {
+                    toast(`${editEmployee[0]?.name} change to ${name} employee edited successfully!!`, {
                         icon: '👏',
                     });
+                    setEditEmployee('');
+                    setEmployees(data.result);
+                    setCount(data.count[0].total_count);
                 })
         }
     }

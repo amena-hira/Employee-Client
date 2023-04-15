@@ -24,23 +24,34 @@ const Dashboard = () => {
                 setEmployees(data.result);
                 setCount(data.count[0].total_count);
             })
-    }, [page,size]);
+    }, [page, size]);
 
     return (
         <div>
             <div className='d-flex justify-content-end p-4'>
-                <Button onClick={() => setSmShow(true)} variant="warning" className='d-flex items-center'>
+                <Button onClick={() => setSmShow(true)} variant="warning" className='d-flex align-items-center'>
                     <AiOutlineUserAdd className='me-1'></AiOutlineUserAdd>Add Employee
                 </Button>
-                <ModalForm page={page} size={size} setCount={setCount} setEditEmployee={setEditEmployee} smShow={smShow} setSmShow={setSmShow} heading={'Add'} id={'addEmployee'} setEmployees={setEmployees}></ModalForm>
+                <ModalForm
+                    setPage={setPage}
+                    page={page}
+                    size={size}
+                    setCount={setCount}
+                    setEditEmployee={setEditEmployee}
+                    smShow={smShow}
+                    setSmShow={setSmShow}
+                    heading={'Add'}
+                    id={'addEmployee'}
+                    setEmployees={setEmployees}
+                ></ModalForm>
             </div>
             <div className='d-flex ms-4'>
                 <nav aria-label="..." className='me-2'>
                     <ul className="pagination pagination-sm">
                         {
                             [...Array(pages).keys()].map(number => <li className={page === number ? 'page-item active' : 'page-item'}>
-                            <button className="page-link" key={number} onClick={() => setPage(number)} >{number}</button>
-                        </li>)
+                                <button className="page-link" key={number} onClick={() => setPage(number)} >{number}</button>
+                            </li>)
                         }
                     </ul>
                 </nav>
@@ -54,7 +65,15 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className='p-4'>
-                <EmployeeDataTable editEmployee={editEmployee} employees={employees} setEditEmployee={setEditEmployee} setEmployees={setEmployees}></EmployeeDataTable>
+                <EmployeeDataTable
+                    page={page}
+                    size={size}
+                    setCount={setCount}
+                    editEmployee={editEmployee}
+                    employees={employees}
+                    setEditEmployee={setEditEmployee}
+                    setEmployees={setEmployees}
+                ></EmployeeDataTable>
             </div>
 
         </div>
